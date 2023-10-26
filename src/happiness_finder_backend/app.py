@@ -1,5 +1,6 @@
 import base64
 import io
+import os
 
 from flask import Flask, request
 from flask_cors import CORS
@@ -10,6 +11,7 @@ app = Flask(__name__)
 CORS(app)
 
 model = YOLO("model/best.pt")  # pretrained YOLOv8x model
+model(os.path.join(app.root_path, "bus.jpg"))
 
 
 @app.route("/api/detect", methods=["POST"])
