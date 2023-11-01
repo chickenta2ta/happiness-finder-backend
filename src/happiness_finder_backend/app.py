@@ -1,4 +1,3 @@
-import base64
 import io
 import os
 
@@ -16,12 +15,10 @@ model(os.path.join(app.root_path, "bus.jpg"))
 
 @app.route("/api/detect", methods=["POST"])
 def detect():
-    json_data = request.get_json()
-    image = json_data["image"].split(",")[1]
-    image = base64.b64decode(image)
+    image = request.data
     image = Image.open(io.BytesIO(image))
 
-    results = model(image)
+    results = model.predict(image, half=True)
     results = results[0]
     results = results.tojson()
 
