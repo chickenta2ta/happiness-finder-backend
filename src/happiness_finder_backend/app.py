@@ -18,7 +18,7 @@ def detect():
     image = request.data
     image = Image.open(io.BytesIO(image))
 
-    results = model.predict(image, half=True)
+    results = model.predict(image, imgsz=1280, half=True)
     results = results[0]
     results = results.tojson()
 
